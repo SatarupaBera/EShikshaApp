@@ -1,0 +1,18 @@
+<div class="fade-in">
+    <h4>ANNOUNCEMENT 📢 </h4>
+  <h4 class="text-white fw-bold mb-4">Latest Updates</h4>
+  
+  <div *ngFor="let n of notifications" class="announcement-card p-3 rounded-4 mb-3">
+    <h6 class="fw-bold" 
+        [style.color]="n.type === 'info' ? 'var(--neon-cyan)' : n.type === 'warning' ? '#fbbf24' : 'var(--neon-rose)'">
+      {{n.title}}
+    </h6>
+    
+    <p class="small text-white-50 mb-1">{{n.body}}</p>
+    
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="text-muted fw-bold">{{n.time}}</small>
+      <span class="status-dot" [ngClass]="'dot-' + n.type"></span>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,12 @@ export const instructorRoutes : Routes = [
         {path:"assignments", loadComponent:()=>import("./manage-assignemts/manage-assignemts").then(r=>r.ManageAssignemts)},
         {path:"quizes", loadComponent:()=>import("./quizes/quizes").then(r=>r.Quizes)},
         {path:"managecourse", loadComponent:()=>import("../components/manage-course/manage-course").then(r=>r.ManageCourse)},
-        {path:"communication", loadComponent:()=>import("../admin/message/message").then(r=>r.CommunicationModuleComponent)}
+        {path:"communication", loadComponent:()=>import("../admin/message/message").then(r=>r.CommunicationModuleComponent)},
+        {path:"announcements",loadComponent:()=>import("../components/announcements/announcements").then(r=>r.Announcements)},
+        { path: "aiassistant", loadComponent: () => import("../components/ai-assistant/ai-assistant").then(r => r.AiAssistantComponent) },
+        {path:"community-forum",loadComponent:()=>import("../components/community-forum/community-forum").then(r=>r.CommunityForumComponent)}
+
+            
+        
     ]}
 ]
