@@ -18,13 +18,13 @@ export class CourseDetails {
   assignmentService=inject(AssignmentService);
 
   router = inject(Router);
-  courseId1!: number;
+  courseId1!: string;
 
-  selectedCourse = signal<{ course: Course, assignments: Assignments[] } | null>(null);
+  selectedCourse = signal<{ course: Course, assignments: Assignments[], quizzes:any[] } | null>(null);
 
   ngOnInit() {
     this.courseId1 = this.activatedRoute.snapshot.params['courseId'];
-    this.courseService.getCourseById(this.activatedRoute.snapshot.params['courseId']).subscribe(res => {
+    this.courseService.getCourseById(this.courseId1).subscribe(res => {
       this.selectedCourse.set(res.result);
       console.log(res.result);
     })
@@ -47,6 +47,13 @@ export class CourseDetails {
     );
 
 
+  }
+
+  startQuiz(quizId:string){
+    console.log(quizId);
+    if(confirm("Are you want to start this quiz?")){
+      this.router.navigate(["/coursedetails", this.courseId1, 'quiz', quizId]);
+    }
   }
 
 }
