@@ -272,7 +272,7 @@ export class ManageAssignemts {
       }
      })
 
-     this.AssignmentResponses.update(as=>as.filter(a=>a._id!==result._id));
+     this.AssignmentResponses.update(asr=>asr.filter(e=>e._id!==result._id));
   }
 
   downloadStudentDocument(result:AssignmentsResult){
@@ -286,7 +286,7 @@ export class ManageAssignemts {
 
         const link = document.createElement('a');
         link.href = downloadUrl;
-        link.download = `${result.student.name}_assignment.pdf`;
+        link.download = `${result.student.name}_submission.pdf`;
  
        
         document.body.appendChild(link);
