@@ -33,13 +33,13 @@ export class Announcements implements OnInit {
   isInstructor = false; 
 
   ngOnInit() {
-    
+    // Reactive Form controls initialization
     this.announcementForm = this.fb.group({
       courseId: ['', Validators.required],
       messageText: ['', [Validators.required, Validators.minLength(5)]]
     });
 
-  
+    // Dropdown stream pipeline configuration
     this.courseService.instructorCourses$
       .pipe(
         map((courseArray) => {
@@ -51,7 +51,7 @@ export class Announcements implements OnInit {
         if (courses) this.instructorCourses.set(courses);
       });
 
-    
+    // Main authenticated login logic integration tracking
     this.userService.activeUser$.subscribe(user => {
       this.isInstructor = user?.role === "INSTRUCTOR";
       this.loadAnnouncements();
