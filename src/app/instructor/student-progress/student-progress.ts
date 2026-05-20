@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { CourseService } from '../../services/course-service';
 import { map } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-student-progress',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './student-progress.html',
   styleUrl: './student-progress.css',
 })

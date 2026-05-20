@@ -18,7 +18,7 @@
               <div class="d-flex align-items-center gap-4 mb-4">
                 <div class="d-flex align-items-center">
                   <i class="bi bi-star-fill text-warning me-2"></i>
-                  <span class="fw-bold fs-5">{{ data?.course?.rating?.average }}</span>
+                  <span class="fw-bold fs-5">{{ data?.course?.rating?.average?.$numberDecimal }}</span>
                   <span class="ms-1 opacity-75">({{ data?.course?.rating?.totalUsers }} reviews)</span>
                 </div>
                 <div class="vr opacity-50"></div>
