@@ -28,7 +28,7 @@ export class CourseDetails {
   // enrolledAccessStatus = signal<'blocked'|'enrolled'|'notenrolled'>('blocked');
   enrolledCourseList = signal<[]>([]);
 
-  selectedCourse = signal<{ course: Course, assignments: Assignments[], quizzes:any[] } | null>(null);
+  selectedCourse = signal<{ course: Course, assignments: Assignments[], quizzes:any[], totalEnrollments:number } | null>(null);
 
   ngOnInit() {
     this.courseId1 = this.activatedRoute.snapshot.params['courseId'];
@@ -40,11 +40,17 @@ export class CourseDetails {
 
   enroll() {
     this.courseService.enrollCourse(this.courseId1).subscribe({
-      next:_=>{
+      next:res=>{
+        const currentCourses = this.courseService.studentCourses$.getValue()??[];
+        this.courseService.studentCourses$.next([res.result, ...currentCourses]);
         this.toastService.success(`Successfully enrolled in ${this.selectedCourse()?.course?.title}!`);
       },
       error:err=>{
-        this.toastService.error(err.error.message??"Internal Server Error");
+        let message = err?.error?.message;
+        if(message.match("duplicate key")){
+          message = "You already enrolled in this course";
+        }
+        this.toastService.error(message??"Internal Server Error");
       }
     })
   }
