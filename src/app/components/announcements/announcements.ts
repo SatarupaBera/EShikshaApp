@@ -87,10 +87,10 @@ export class Announcements implements OnInit {
     });
 
    
-  }
+  }//authentication 
 
   getCourseName(id: string) {
-    return this.instructorCourses().find(c => c.id == id)?.title || 'Selected Course';
+    return this.instructorCourses().find(c => c.id == id)?.title || 'Selected Course';//selecting course
   }
 
   postAnnouncement() {
