@@ -3,15 +3,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../services/course-service';
 import { Course } from '../../models/course';
 import { Assignments } from '../../models/assignments';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { AssignmentService } from '../../services/assignment-service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user-service';
 import { combineLatest, map, Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-course-details',
-  imports: [DatePipe, AsyncPipe],
+  imports: [DatePipe, AsyncPipe,CommonModule,FormsModule],
   templateUrl: './course-details.html',
   styleUrl: './course-details.css',
 })
@@ -29,6 +30,15 @@ export class CourseDetails {
   enrolledCourseList = signal<[]>([]);
 
   selectedCourse = signal<{ course: Course, assignments: Assignments[], quizzes:any[] } | null>(null);
+
+  currentRating = signal<number>(0);
+
+  setRating(ratingValue: number) {
+    this.currentRating.set(ratingValue);
+    console.log('Captured rating:', this.currentRating());
+  }
+  reviewText = signal<string>('');
+
 
   ngOnInit() {
     this.courseId1 = this.activatedRoute.snapshot.params['courseId'];
@@ -50,7 +60,14 @@ export class CourseDetails {
   }
 
   unrenroll(){
-    
+    this.courseService.deleteEnrollment(this.courseId1).subscribe({
+      next:res=>{
+        this.toastService.success(res.message)
+      },
+      error:err=>{
+        this.toastService.error(err.error.message??"Internal Server Error");
+      }
+    })
   }
 
 
@@ -89,5 +106,4 @@ export class CourseDetails {
       })
     );
   }
-
 }
